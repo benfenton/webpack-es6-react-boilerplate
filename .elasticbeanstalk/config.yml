@@ -1,0 +1,14 @@
+branch-defaults:
+  develop:
+    environment: videoWall-env-dev
+  master:
+    environment: videoWall-env
+  default:
+    environment: videoWall-env-dev
+global:
+  application_name: video-wall
+  default_ec2_keyname: null
+  default_platform: Docker 1.6.0
+  default_region: us-east-1
+  profile: eb-cli
+  sc: git

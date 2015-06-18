@@ -1,0 +1,31 @@
+language: 
+
+env:
+  global:
+    - AWSAccessKeyId=AKIAJHLRYE37JFYGMOIQ
+    - secure: q2hmMFq9Ymc1k5NjZ87AlWCS4uZmC1pp8USPyU8NmW5ZyTICyz1iKZJMpAXZwgfvJHNUuS30mmflOLSacCGGn7vrwzxzp//5hPFRj/bk2jLp1MJ1KAlFtz3e/rPM/vbWKOoGZZra/Yr4lEGti/Qwb/2B/y1OWj63We55nubB8aBU8anQNbClDG+G3BUtC0LmCC4HhoCaBqhSvXyWUB25yMkeFAj0nng986dFF391BGI7AhmEXsezTWQGHRqUQD72LzvKI7R6PsA/iRCcl5MIIt/vFcxqluCJx/LpnSy6qCyXnrQ+nk2XiNhOOm3/xEOijUXocNMr93y7JGpfZwlBGw==
+
+branches:
+  only:
+    - master
+    - develop
+    
+before_install:
+  - sudo apt-get install -y python-dev
+  - sudo pip install awsebcli
+
+install:
+  - pip install -r requirements.txt
+   
+before_script:
+  - mkdir -p ~/.aws
+  - echo '[profile eb-cli]' > ~/.aws/config
+  - echo "aws_access_key_id = $AWSAccessKeyId" >> ~/.aws/config
+  - echo "aws_secret_access_key = $AWSSecretKey" >> ~/.aws/config
+
+commit_container: hookandloop/py-flask-signup-docker
+
+after_success:
+  - eb init && eb deploy --timeout 30
+notifications:
+  email: false

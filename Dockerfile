@@ -1,9 +1,11 @@
-FROM dockerfile/nodejs
+FROM node
 
 ENV PORT 80
 
 ADD ./ /sample
 WORKDIR /sample
+
+COPY . /sample/
 
 EXPOSE 80
 
